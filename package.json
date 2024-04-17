@@ -1,5 +1,5 @@
 {
-  "name": "rspack-react-starter",
+  "name": "rspack-memory-leak",
   "private": true,
   "version": "1.0.0",
   "scripts": {
