@@ -1,0 +1,20 @@
+{
+  "name": "rspack-react-starter",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node --expose-gc main.js"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rspack/plugin-react-refresh": "0.6.1",
+    "@rspack/cli": "0.6.1",
+    "@rspack/core": "0.6.1",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "react-refresh": "^0.14.0"
+  }
+}
