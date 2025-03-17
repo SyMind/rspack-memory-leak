@@ -2,6 +2,9 @@ const rspack = require("@rspack/core");
 const refreshPlugin = require("@rspack/plugin-react-refresh");
 const isDev = process.env.NODE_ENV === "development";
 
+class Foo {
+}
+
 const cleanup = new FinalizationRegistry(key => {
     console.log('gc: ', key)
 });
@@ -67,25 +70,25 @@ async function run() {
         ].filter(Boolean)
     });
 
-    const foo = {}
+    const foo = new Foo();
     cleanup.register(compiler, 'compiler');
     cleanup.register(foo, 'foo');
     compiler.run((err, stats) => {
+        foo;
         if (err) {
             console.log(err)
         } else {
-            console.log('done: ', foo);
+            console.log(stats.toString({ colors: true}))
         }
     });
 }
 run();
 
-
 setTimeout(() => {
-    console.log('try')
+    console.log('try gc')
     global.gc();
-}, 1000)
 
-setTimeout(() => {
-    console.log('end')
-}, 4000)
+    setTimeout(() => {
+        console.log('end')
+    });
+}, 10000);
