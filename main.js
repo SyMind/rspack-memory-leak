@@ -2,12 +2,20 @@ const rspack = require("@rspack/core");
 const refreshPlugin = require("@rspack/plugin-react-refresh");
 const isDev = process.env.NODE_ENV === "development";
 
-class Foo {
-}
-
 const cleanup = new FinalizationRegistry(key => {
     console.log('gc: ', key)
 });
+
+class Plugin {
+    apply(compiler) {
+        compiler.hooks.compilation.tap("PLUGIN", compilation => {
+            cleanup.register(compilation, 'compilation');
+        });
+    }
+}
+
+class Foo {
+}
 
 async function run() {
     const compiler = rspack({
@@ -66,7 +74,8 @@ async function run() {
             new rspack.HtmlRspackPlugin({
                 template: "./index.html"
             }),
-            isDev ? new refreshPlugin() : null
+            isDev ? new refreshPlugin() : null,
+            new Plugin()
         ].filter(Boolean)
     });
 
